@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEARCH_EXCHANGE</title>
+     <style>
+         #content{
+          color:gray;
+    }
+    </style>
+</head>
+<body>
+    <div style="color:black" id="htm">
+        <h2>Search the destination rxns</h2>
+        <p>input here:</p>
+    </div>
+    <input type="text" id="content" value="请输入文字">
+    <button onclick="btn()">搜索</button>
+    <div id="html"></div>
+    <p>result:</p>
+    <div id="test"></div>
+    <script>
+      var x=  document.getElementById("content")//获取输入框元素
+      var y=  document.getElementById("html") //获取id为html的元素
+      function btn(){
+        var tt='http://127.0.0.1:8000/objsearch?name='+x.value
+        var xhr = new XMLHttpRequest();
+            xhr.open('GET', tt);
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status < 300){
+                        const data = JSON.stringify(xhr.response);
+                        test.innerHTML = data
+                    }
+                    else{
+                        alert("CONNECTION ERROR! STATUS:" + xhr.response);
+                    }
+                }
+            }
+      }
+    </script>
+</body>
+</html>
